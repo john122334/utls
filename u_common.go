@@ -156,8 +156,10 @@ const (
 	helloRandomizedNoALPN = "Randomized-NoALPN"
 	helloCustom           = "Custom"
 	helloFirefox          = "Firefox"
+	helloOpera            = "Opera"
 	helloChrome           = "Chrome"
 	helloIOS              = "iOS"
+	helloSafari           = "Safari"
 	helloAndroid          = "Android"
 	helloEdge             = "Edge"
 	helloSafari           = "Safari"
@@ -620,17 +622,25 @@ var (
 	// Beta: PQ extension added. However, uTLS doesn't ship with full PQ support. Use at your own discretion.
 	HelloChrome_115_PQ     = ClientHelloID{helloChrome, "115_PQ", nil, nil}
 	HelloChrome_115_PQ_PSK = ClientHelloID{helloChrome, "115_PQ_PSK", nil, nil}
+	HelloOpera_Auto = HelloOpera_89
+	HelloOpera_89   = ClientHelloID{helloOpera, "89", nil}
 
 	// Chrome ECH
 	HelloChrome_120 = ClientHelloID{helloChrome, "120", nil, nil}
 	// Chrome w/ Post-Quantum Key Agreement and Encrypted ClientHello
 	HelloChrome_120_PQ = ClientHelloID{helloChrome, "120_PQ", nil, nil}
 
-	HelloIOS_Auto = HelloIOS_14
+	HelloIOS_Auto = HelloIOS_15_5
 	HelloIOS_11_1 = ClientHelloID{helloIOS, "111", nil, nil} // legacy "111" means 11.1
 	HelloIOS_12_1 = ClientHelloID{helloIOS, "12.1", nil, nil}
 	HelloIOS_13   = ClientHelloID{helloIOS, "13", nil, nil}
 	HelloIOS_14   = ClientHelloID{helloIOS, "14", nil, nil}
+
+	HelloIOS_15_5 = ClientHelloID{helloIOS, "15.5", nil}
+
+	HelloSafari_Auto = HelloSafari_15_5
+	HelloSafari_15_3 = ClientHelloID{helloSafari, "15.3", nil}
+	HelloSafari_15_5 = ClientHelloID{helloSafari, "15.5", nil}
 
 	HelloAndroid_11_OkHttp = ClientHelloID{helloAndroid, "11", nil, nil}
 
