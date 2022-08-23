@@ -601,6 +601,7 @@ var (
 	HelloRandomizedNoALPN = ClientHelloID{helloRandomizedNoALPN, helloAutoVers, nil, EmptyClientHelloSpecFactory}
 
 	// The rest will will parrot given browser.
+	HelloFirefox_Auto = HelloFirefox_104
 	HelloFirefox_Auto = HelloFirefox_120
 	HelloFirefox_55   = ClientHelloID{helloFirefox, "55", nil, EmptyClientHelloSpecFactory}
 	HelloFirefox_56   = ClientHelloID{helloFirefox, "56", nil, EmptyClientHelloSpecFactory}
@@ -608,6 +609,7 @@ var (
 	HelloFirefox_65   = ClientHelloID{helloFirefox, "65", nil, EmptyClientHelloSpecFactory}
 	HelloFirefox_99   = ClientHelloID{helloFirefox, "99", nil}
 	HelloFirefox_102  = ClientHelloID{helloFirefox, "102", nil, EmptyClientHelloSpecFactory}
+	HelloFirefox_104  = ClientHelloID{helloFirefox, "104", nil, EmptyClientHelloSpecFactory}
 	HelloFirefox_105  = ClientHelloID{helloFirefox, "105", nil}
 	HelloFirefox_120  = ClientHelloID{helloFirefox, "120", nil, nil}
 
@@ -634,7 +636,8 @@ var (
 	// Beta: PQ extension added. However, uTLS doesn't ship with full PQ support. Use at your own discretion.
 	HelloChrome_115_PQ     = ClientHelloID{helloChrome, "115_PQ", nil, nil}
 	HelloChrome_115_PQ_PSK = ClientHelloID{helloChrome, "115_PQ_PSK", nil, nil}
-	HelloOpera_Auto = HelloOpera_89
+	HelloOpera_Auto = HelloOpera_90
+	HelloOpera_90   = ClientHelloID{helloOpera, "90", nil, EmptyClientHelloSpecFactory}
 	HelloOpera_89   = ClientHelloID{helloOpera, "89", nil, EmptyClientHelloSpecFactory}
 
 	HelloChrome_Auto = HelloChrome_104
@@ -654,13 +657,14 @@ var (
 	// Chrome w/ Post-Quantum Key Agreement and Encrypted ClientHello
 	HelloChrome_120_PQ = ClientHelloID{helloChrome, "120_PQ", nil, nil}
 
-	HelloIOS_Auto = HelloIOS_15_5
+	HelloIOS_Auto = HelloIOS_15_6
 	HelloIOS_11_1 = ClientHelloID{helloIOS, "111", nil, EmptyClientHelloSpecFactory} // legacy "111" means 11.1
 	HelloIOS_12_1 = ClientHelloID{helloIOS, "12.1", nil, EmptyClientHelloSpecFactory}
 	HelloIOS_13   = ClientHelloID{helloIOS, "13", nil, EmptyClientHelloSpecFactory}
 	HelloIOS_14   = ClientHelloID{helloIOS, "14", nil, EmptyClientHelloSpecFactory}
 
 	HelloIOS_15_5 = ClientHelloID{helloIOS, "15.5", nil, EmptyClientHelloSpecFactory}
+	HelloIOS_15_6 = ClientHelloID{helloIOS, "15.6", nil, EmptyClientHelloSpecFactory}
 
 	HelloSafari_Auto = HelloSafari_15_5
 	HelloSafari_15_3 = ClientHelloID{helloSafari, "15.3", nil, EmptyClientHelloSpecFactory}
