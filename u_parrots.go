@@ -891,7 +891,6 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 				&SessionTicketExtension{},
 				&ALPNExtension{AlpnProtocols: []string{"h2", "http/1.1"}},
 				&StatusRequestExtension{},
-				// &GenericExtension{Id: ExtensionDelegatedCredentials},
 				&DelegatedCredentialsExtension{
 					AlgorithmsSignature: []SignatureScheme{
 						ECDSAWithP256AndSHA256,
@@ -925,7 +924,7 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 				&FakeRecordSizeLimitExtension{0x4001},
 				&UtlsPaddingExtension{GetPaddingLen: BoringPaddingStyle},
 			}}, nil
-	case HelloFirefox_106.Str():
+	case HelloFirefox_106.Str(), HelloFirefox_108.Str():
 		return ClientHelloSpec{
 			CipherSuites: []uint16{
 				TLS_AES_128_GCM_SHA256,
@@ -967,7 +966,6 @@ func utlsIdToSpec(id ClientHelloID) (ClientHelloSpec, error) {
 				&SessionTicketExtension{},
 				&ALPNExtension{AlpnProtocols: []string{"h2", "http/1.1"}},
 				&StatusRequestExtension{},
-				// &GenericExtension{Id: ExtensionDelegatedCredentials},
 				&DelegatedCredentialsExtension{
 					AlgorithmsSignature: []SignatureScheme{
 						ECDSAWithP256AndSHA256,
