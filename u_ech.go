@@ -8,8 +8,8 @@ import (
 	"math/big"
 	"sync"
 
+	"github.com/bogdanfinn/utls/dicttls"
 	"github.com/cloudflare/circl/hpke"
-	"github.com/refraction-networking/utls/dicttls"
 )
 
 // Unstable API: This is a work in progress and may change in the future. Using
