@@ -128,6 +128,7 @@ const (
 	ExtensionQUICTransportParameters uint16 = 57
 	ExtensionNextProtoNeg            uint16 = 13172 // not IANA assigned
 	ExtensionALPS                    uint16 = 17513
+	ExtensionECH                     uint16 = 65037
 	ExtensionRenegotiationInfo       uint16 = 65281
 )
 
