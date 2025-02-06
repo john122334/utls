@@ -67,8 +67,10 @@ func ExtensionFromID(id uint16) TLSExtension {
 		return &QUICTransportParametersExtension{}
 	case ExtensionNextProtoNeg:
 		return &NPNExtension{}
-	case utlsExtensionApplicationSettings:
-		return &ApplicationSettingsExtension{}
+	case ExtensionALPSOld:
+		return NewApplicationSettingsExtensionOld()
+	case ExtensionALPS:
+		return NewApplicationSettingsExtension()
 	case fakeOldExtensionChannelID:
 		return &FakeChannelIDExtension{true}
 	case fakeExtensionChannelID:
@@ -694,7 +696,23 @@ func (e *ALPNExtension) Write(b []byte) (int, error) {
 // At the time of this writing, this extension is currently a draft:
 // https://datatracker.ietf.org/doc/html/draft-vvv-tls-alps-01
 type ApplicationSettingsExtension struct {
+	CodePoint          uint16
 	SupportedProtocols []string
+}
+
+func NewApplicationSettingsExtension(supportedProtocols ...string) *ApplicationSettingsExtension {
+	return &ApplicationSettingsExtension{
+		CodePoint:          ExtensionALPS,
+		SupportedProtocols: supportedProtocols,
+	}
+}
+
+// same name as google is using https://boringssl.googlesource.com/boringssl/+/HEAD/include/openssl/tls1.h#115
+func NewApplicationSettingsExtensionOld(supportedProtocols ...string) *ApplicationSettingsExtension {
+	return &ApplicationSettingsExtension{
+		CodePoint:          ExtensionALPSOld,
+		SupportedProtocols: supportedProtocols,
+	}
 }
 
 func (e *ApplicationSettingsExtension) writeToUConn(uc *UConn) error {
@@ -715,8 +733,8 @@ func (e *ApplicationSettingsExtension) Read(b []byte) (int, error) {
 	}
 
 	// Read Type.
-	b[0] = byte(ExtensionALPS >> 8)   // hex: 44 dec: 68
-	b[1] = byte(ExtensionALPS & 0xff) // hex: 69 dec: 105
+	b[0] = byte(e.CodePoint >> 8)   // hex: 44 dec: 68
+	b[1] = byte(e.CodePoint & 0xff) // hex: 69 dec: 105
 
 	lengths := b[2:] // get the remaining buffer without Type
 	b = b[6:]        // set the buffer to the buffer without Type, Length and ALPS Extension Length (so only the Supported ALPN list remains)

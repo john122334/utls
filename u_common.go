@@ -36,7 +36,6 @@ const (
 
 	utlsExtensionPadding             uint16 = 21
 	utlsExtensionCompressCertificate uint16 = 27     // https://datatracker.ietf.org/doc/html/rfc8879#section-7.1
-	utlsExtensionApplicationSettings uint16 = 17513  // not IANA assigned
 	utlsFakeExtensionCustom          uint16 = 1234   // not IANA assigned, for ALPS
 	utlsExtensionECH                 uint16 = 0xfe0d // draft-ietf-tls-esni-17
 	utlsExtensionECHOuterExtensions  uint16 = 0xfd00 // draft-ietf-tls-esni-17
@@ -450,9 +449,16 @@ func (chs *ClientHelloSpec) ImportTLSClientHello(data map[string][]byte) error {
 				if err != nil {
 					return err
 				}
-			case utlsExtensionApplicationSettings:
+			case ExtensionALPSOld:
 				// TODO: tlsfingerprint.io should record/provide application settings data
-				extWriter.(*ApplicationSettingsExtension).SupportedProtocols = []string{"h2"}
+				ext := extWriter.(*ApplicationSettingsExtension)
+				ext.CodePoint = ExtensionALPSOld
+				ext.SupportedProtocols = []string{"h2"}
+			case ExtensionALPS:
+				// TODO: tlsfingerprint.io should record/provide application settings data
+				ext := extWriter.(*ApplicationSettingsExtension)
+				ext.CodePoint = ExtensionALPS
+				ext.SupportedProtocols = []string{"h2"}
 			case ExtensionPreSharedKey:
 				log.Printf("[Warning] PSK extension added without data")
 			default:
@@ -709,6 +715,7 @@ type Weights struct {
 	Extensions_Append_Reneg                            float64
 	Extensions_Append_EMS                              float64
 	FirstKeyShare_Set_CurveP256                        float64
+	Extensions_Append_ALPS_Old                         float64
 	Extensions_Append_ALPS                             float64
 }
 
@@ -730,6 +737,7 @@ var DefaultWeights = Weights{
 	Extensions_Append_Reneg:                            0.75,
 	Extensions_Append_EMS:                              0.77,
 	FirstKeyShare_Set_CurveP256:                        0.25,
+	Extensions_Append_ALPS_Old:                         0.33,
 	Extensions_Append_ALPS:                             0.33,
 }
 
