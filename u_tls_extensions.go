@@ -68,9 +68,13 @@ func ExtensionFromID(id uint16) TLSExtension {
 	case ExtensionNextProtoNeg:
 		return &NPNExtension{}
 	case ExtensionALPSOld:
-		return NewApplicationSettingsExtensionOld()
+		return &ApplicationSettingsExtension{
+			CodePoint: ExtensionALPSOld,
+		}
 	case ExtensionALPS:
-		return NewApplicationSettingsExtension()
+		return &ApplicationSettingsExtension{
+			CodePoint: ExtensionALPS,
+		}
 	case fakeOldExtensionChannelID:
 		return &FakeChannelIDExtension{true}
 	case fakeExtensionChannelID:
@@ -695,24 +699,11 @@ func (e *ALPNExtension) Write(b []byte) (int, error) {
 // ApplicationSettingsExtension represents the TLS ALPS extension.
 // At the time of this writing, this extension is currently a draft:
 // https://datatracker.ietf.org/doc/html/draft-vvv-tls-alps-01
+// Due to https://boringssl.googlesource.com/boringssl/+/HEAD/include/openssl/tls1.h#115 we need to support both 17613 and 17513
+// https://boringssl.googlesource.com/boringssl/+/HEAD/include/openssl/tls1.h#115
 type ApplicationSettingsExtension struct {
 	CodePoint          uint16
 	SupportedProtocols []string
-}
-
-func NewApplicationSettingsExtension(supportedProtocols ...string) *ApplicationSettingsExtension {
-	return &ApplicationSettingsExtension{
-		CodePoint:          ExtensionALPS,
-		SupportedProtocols: supportedProtocols,
-	}
-}
-
-// same name as google is using https://boringssl.googlesource.com/boringssl/+/HEAD/include/openssl/tls1.h#115
-func NewApplicationSettingsExtensionOld(supportedProtocols ...string) *ApplicationSettingsExtension {
-	return &ApplicationSettingsExtension{
-		CodePoint:          ExtensionALPSOld,
-		SupportedProtocols: supportedProtocols,
-	}
 }
 
 func (e *ApplicationSettingsExtension) writeToUConn(uc *UConn) error {
