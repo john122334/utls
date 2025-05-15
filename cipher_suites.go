@@ -14,7 +14,7 @@ import (
 	"crypto/sha1"
 	"crypto/sha256"
 	"fmt"
-	"github.com/john122334/utls/internal/boring"
+	"github.com/bogdanfinn/utls/internal/boring"
 	"golang.org/x/crypto/chacha20poly1305"
 	"golang.org/x/sys/cpu"
 	"hash"
