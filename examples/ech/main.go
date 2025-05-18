@@ -13,7 +13,7 @@ import (
 	"time"
 
 	tls "github.com/bogdanfinn/utls"
-	"golang.org/x/net/http2"
+	"github.com/bogdanfinn/fhttp/http2"
 )
 
 var (
